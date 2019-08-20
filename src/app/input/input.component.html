@@ -1,0 +1,93 @@
+<html>
+  <body>
+      
+
+    <div class="container">
+
+        <!-- SEARCH BAR -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <span style = "width: 80%;" class = "form mx-auto">
+                    <input style = "width: 80%;" type = "text" class = "textbox" placeholder = "Search" [(ngModel)] = "textValue">  
+                </span>
+                <span style = "cursor: pointer;" class = "form1"><i (click) = "search()" class = "mx-2 my-2 fas fa-2x fa-search"></i></span>            
+            </div>
+        </div>
+
+        <!-- CURRENT SEARCH -->
+        <div class="row mt-5">
+            <h5 class="ml-3 mb-5">CURRENT SEARCH</h5>
+            <div *ngIf="this.ser.flag == 1" class="col-md-12 ml-3">
+                <div *ngFor="let current of this.ser.currents let i=index">
+                    <h6 class = " text-info mb-2 ">{{current.name}}</h6>
+                    <p class = " text-success mb-1">Stocks Price At : </p>
+                    <span>SUNDAY : {{current.days.sun}}</span><span> , </span>
+                    <span>Monday : {{current.days.mon}}</span><span> , </span>
+                    <span>TUESDAY : {{current.days.tue}}</span><span> , </span>
+                    <span>WEDNESDAY : {{current.days.wed}}</span><span> , </span>
+                    <span>THURSDAY : {{current.days.thu}}</span><span> , </span>
+                    <span>FRIDAY : {{current.days.fri}}</span><span> , </span>
+                    <span>SATURDAY : {{current.days.sat}}</span>
+                    <span style = "float:right; cursor: pointer;"class = "btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal" (click)="graph(i)">SHOW GRAPH</span> 
+                    <hr>
+                </div>
+            </div>
+            <div *ngIf="this.ser.flag == 0" class="col-md-12 ml-3">
+                <span>{{this.ser.temp}}</span>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- RECENT SEARCH -->
+        <div class="row mt-5">
+            <h5 class="ml-3 mb-2">RECENT SEARCHES</h5><br>     
+            <div  class = "col-md-12">
+                <p style = "color:red;" class = "mb-5">NOTE: If Previous Search get "NOT FOUND" then this Section will be Blank.</p>
+                <div class = "ml-3"*ngFor="let recent of this.ser.recents let i=index">
+                    <h6 class = " text-info mb-2 ">{{recent.name}}</h6>
+                    <p class = " text-success mb-1">Stocks Price At : </p>
+                    <span>SUNDAY : {{recent.days.sun}}</span><span> , </span>
+                    <span>Monday : {{recent.days.mon}}</span><span> , </span>
+                    <span>TUESDAY : {{recent.days.tue}}</span><span> , </span>
+                    <span>WEDNESDAY : {{recent.days.wed}}</span><span> , </span>
+                    <span>THURSDAY : {{recent.days.thu}}</span><span> , </span>
+                    <span>FRIDAY : {{recent.days.fri}}</span><span> , </span>
+                    <span>SATURDAY : {{recent.days.sat}}</span>
+                    <a routerLink = "/search/recent/{{i}}"><span style = "float:right; cursor: pointer;" class = "btn btn-secondary btn-sm" (click)="graph(i)">SHOW GRAPH</span></a> 
+                    <hr>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SHOW THE GRAPH -->
+        <hr>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{this.modal}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <canvas  id="myChart"></canvas>      
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+  </body>
+</html>
